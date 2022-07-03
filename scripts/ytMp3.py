@@ -4,13 +4,8 @@ import os, platform, shutil
 ### VARIABLES
 MUSIC_PATH              = os.path.expanduser('~\Music')
 
-music_path              = ''
-sys_os                  = platform.system()
-
 ### FUNCTIONS
-
-
-def video_download(url, sys_os):
+def video_download(url):
     """ 
     Download the video and move it to music folder 
     Arguments:
@@ -35,7 +30,7 @@ while True:
     url = str(input('url: '))
     if url == "exit":
         break;
-    video_download(url,sys_os)
+    video_download(url)
 
 print("Done")
 
