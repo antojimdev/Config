@@ -2,7 +2,8 @@ from pytube import YouTube
 import os, platform, shutil
 
 ### VARIABLES
-MUSIC_PATH              = os.path.expanduser('~\Music')
+MUSIC_PATH_WINDOWS             = os.path.expanduser('~\Music')
+MUSIC_PATH_LINUX             = os.path.expanduser('~/Music')
 
 ### FUNCTIONS
 def video_download(url):
@@ -17,9 +18,15 @@ def video_download(url):
     downloaded_file = video.download()
     base, ext = os.path.splitext(downloaded_file)
     new_file = base + '.mp3'
-    # print(f"{MUSIC_PATH}")
     os.rename(downloaded_file, new_file)
-    shutil.move(f"{new_file}", f"{MUSIC_PATH}")
+    # print(f"{new_file}")
+    if(platform.system() == 'Linux'):
+        splitted_path = new_file.split('/')
+        # /{splitted_path.pop()}
+        shutil.move(f"{new_file}", f"{MUSIC_PATH_LINUX}")
+    else:
+        shutil.move(f"{new_file}", f"{MUSIC_PATH_WINDOWS}")
+        
     
 
 
