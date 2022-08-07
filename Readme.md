@@ -5,6 +5,7 @@
 
 ## .dotfiles
 - **Powershell Profile:** Custom functions and aliases for powershell
+- **NVIM:** NeoVim configuration with plugins
 
  ## scripts
 - **ytMp3.py:** Download youtube videos as .mp3 in your music folder
