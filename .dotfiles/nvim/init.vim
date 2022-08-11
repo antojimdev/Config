@@ -1,11 +1,23 @@
+if has('win32') || has('win64')
+  
+" Windows paths
+   so ~\AppData\Local\nvim\plugins.vim
+   so ~\AppData\Local\nvim\maps.vim
+   source ~\AppData\Local\nvim\plug-conf\lualine.vim
+   source ~\AppData\Local\nvim\plug-conf\nerdtree.vim
+   source ~\AppData\Local\nvim\plug-conf\closetag.vim
 
-so ~/.config/nvim/plugins.vim
-so ~/.config/nvim/maps.vim
+else
+" Linux paths
+   so ~/.config/nvim/plugins.vim
+   so ~/.config/nvim/maps.vim
+   source ~/.config/nvim/plug-conf/lualine.vim
+   source ~/.config/nvim/plug-conf/nerdtree.vim
+   source ~/.config/nvim/plug-conf/closetag.vim
 
-" Plugins conf
-source ~/.config/nvim/plug-conf/lualine.vim
-source ~/.config/nvim/plug-conf/nerdtree.vim
-source ~/.config/nvim/plug-conf/closetag.vim
+endif
+
+
 
 " GENERAL SETTINGS ------------------------------------ {{{
 
