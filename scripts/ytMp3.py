@@ -31,7 +31,7 @@ def video_download(url):
 
 
 ############# MAIN #############
-print("To STOP the program: Ctrl+C or exit")
+print("To STOP the program type exit")
 
 while True:
     url = str(input('url: '))
