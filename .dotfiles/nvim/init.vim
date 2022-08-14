@@ -1,4 +1,4 @@
-if has('win32') || has('win64')
+if has('win32')
   
 " Windows paths
    so ~\AppData\Local\nvim\plugins.vim
@@ -17,15 +17,17 @@ else
 
 endif
 
-
-
 " GENERAL SETTINGS ------------------------------------ {{{
 
 " color schemes
 if (has('termguicolors'))
    set termguicolors
 endif
+" Use syntax highlighting.
 syntax enable
+syntax on 
+
+" colorscheme purify
 
 " Searching
 set hlsearch
@@ -59,9 +61,6 @@ set nocompatible
 
 " Allow plugins to be used.
 filetype plugin on
-
-" Use syntax highlighting.
-syntax enable
 
 " Highlight line with cursor.
 set cursorline

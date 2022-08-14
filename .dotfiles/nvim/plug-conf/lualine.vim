@@ -5,8 +5,8 @@ require('lualine').setup {
     theme = 'codedark',
     --theme = 'molokai',
     icons_enabled = true,
-    --component_separators = { left = '⚡', right = '⚡'},
-    --section_separators = { left = '|', right = '|'},
+    component_separators = { left = '|', right = '|'},
+    section_separators = { left = '', right = ''},
     always_divide_middle = true,
     refresh = {
       statusline = 1000,

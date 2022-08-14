@@ -1,7 +1,7 @@
 " PLUGGINS --------------------------------------- {{{
 
 call plug#begin()
- " Syntax
+ " Language packs
  Plug 'sheerun/vim-polyglot'
 
  " Themes 
@@ -9,7 +9,7 @@ call plug#begin()
  Plug 'kyoz/purify', { 'rtp': 'vim' }
  Plug 'rakr/vim-one'
 
- "NERD Tree - tree explorer
+ " NERD Tree - tree explorer
  Plug 'preservim/nerdtree'
 
  " Enhancend status line
@@ -27,10 +27,13 @@ call plug#begin()
 
  " Autocomplete
  " Plug 'sirver/ultisnips'
+ 
+ " Installation of language servers required
  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
  " IDE
  Plug 'mhinz/vim-signify'
+ " FzF require installation of Ag. Windows -> Choco install ag; Linux -> pacman -S the_silver_searcher
  Plug 'junegunn/fzf'
  Plug 'junegunn/fzf.vim'
  Plug 'yggdroot/indentline'
