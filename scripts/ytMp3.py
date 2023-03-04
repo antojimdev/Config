@@ -1,4 +1,4 @@
-from ./pytube import YouTube
+from pytube import YouTube
 import os, platform, shutil
 
 ### VARIABLES
