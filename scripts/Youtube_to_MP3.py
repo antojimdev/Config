@@ -25,7 +25,17 @@ def mp3_video_download(url):
     
     YT_VIDEO = YouTube(url)
     print(f'Downloading: {YT_VIDEO.title}')
-    video = YT_VIDEO.streams.filter(only_audio=True).first().download()
+    
+    #Choose better quality audio stream
+    audio_streams = YT_VIDEO.streams.filter(type="audio")
+    max_abr = "0"
+    better_stream = None
+    for stream in audio_streams:
+        if stream.abr > max_abr:
+            better_stream = stream
+    print(f'{better_stream}')
+            
+    video = better_stream.download()
     base= os.path.splitext(video)
     video_in_mp3 = base[0] + '.mp3'
     
