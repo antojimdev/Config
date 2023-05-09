@@ -8,6 +8,6 @@
 - **NVIM:** NeoVim configuration with plugins
 
  ## scripts
-- **ytMp3.py:** Download youtube videos as .mp3 in your music folder
+- **YoutubeDownloader.py:** Download youtube videos as .mp3 in your music folder
 - **NameChanger.ps1:** Rename .mp4 files sequentially
   
