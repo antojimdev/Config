@@ -31,9 +31,9 @@ def mp3_video_download(url):
     max_abr = "0"
     better_stream = None
     for stream in audio_streams:
-        if stream.abr > max_abr:
+        if stream.mime_type == "audio/mp4" and stream.abr > max_abr:
             better_stream = stream
-    print(f'{better_stream}')
+    # print(f'{better_stream}')
             
     video = better_stream.download()
     base= os.path.splitext(video)
