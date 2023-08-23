@@ -1,11 +1,15 @@
 from pytube import YouTube, Playlist
+from moviepy.editor import *
 import os, platform, shutil, signal
 
-####################################### VARIABLES #######################################
+####################################### GLOBALS #######################################
 EXIT_STR            = "Quit"
 MUSIC_PATH_WINDOWS  = os.path.expanduser('~\Music')
 MUSIC_PATH_LINUX    = os.path.expanduser('~/Music')
 YT_VIDEO            = None
+MAX_ABR = 192
+MIN_ABR = 128
+ABR_QUALITY_TO_EXPORT = '192k'
 
 
 ####################################### FUNCTIONS #######################################
@@ -18,34 +22,55 @@ def move_to_music_folder(file):
     else:
         shutil.move(f"{file}", f"{MUSIC_PATH_WINDOWS}")
 
+def is_best_abr(best_stream, stream):
+
+    comparing_stream_abr = int(stream.abr.replace('kbps',''))
+    comparing_best_stream_abr = int(best_stream.abr.replace('kbps',''))
+
+    if (comparing_stream_abr < MIN_ABR or comparing_stream_abr > MAX_ABR or comparing_stream_abr < comparing_best_stream_abr):
+        return False
+    return True
+    
+
+
 def mp3_video_download(url):
     """ 
     Download one video in mp3 format and moves it to defaul Music folder
     """
-    
-    YT_VIDEO = YouTube(url)
-    print(f'Downloading: {YT_VIDEO.title}')
-    
-    #Choose better quality audio stream
-    audio_streams = YT_VIDEO.streams.filter(type="audio")
-    max_abr = "0"
-    better_stream = None
-    for stream in audio_streams:
-        if stream.mime_type == "audio/mp4" and stream.abr > max_abr:
-            better_stream = stream
-    # print(f'{better_stream}')
-            
-    video = better_stream.download()
-    base= os.path.splitext(video)
-    video_in_mp3 = base[0] + '.mp3'
-    
     try:
-        os.rename(video, video_in_mp3)
-        move_to_music_folder(video_in_mp3)
+
+        YT_VIDEO = YouTube(url)
+        print(f'Downloading: {YT_VIDEO.title}')
+        
+        #Choose better quality audio stream
+        streams = YT_VIDEO.streams.filter(type="audio")
+        best_stream = streams[0]
+        
+        for stream in streams:
+            if (stream.mime_type == 'audio/mp4' and is_best_abr(best_stream, stream)):
+                best_stream = stream
+        
+        default_filename = best_stream.default_filename
+
+    
+            
+        video = best_stream.download()
+        mp3_filename = default_filename.replace(best_stream.subtype, 'mp3')
+        
+        # base = os.path.splitext(video)
+        # video_in_mp3 = base[0] + '.mp3'
+        # os.rename(video, video_in_mp3)
+
+        audio_file = AudioFileClip(default_filename)
+        audio_file.write_audiofile(mp3_filename,bitrate= ABR_QUALITY_TO_EXPORT)
+
+        move_to_music_folder(mp3_filename)
+        os.remove(video)
+        
     except FileExistsError:
         print(f'File already exists')
-    except Exception:
-        os.remove(video_in_mp3)
+    except Exception as error:
+        print("Exception: ", error)
         
     
     
@@ -58,7 +83,7 @@ def mp3_playlist_download(url):
     except KeyError:
         print(f'URL is not a playlist')    
     
-def handler(signum, frame):
+def exitHandler(signum, frame):
     print('\nGood Bye!!')
     exit(0)
 
@@ -67,7 +92,7 @@ def handler(signum, frame):
 
 print(f'Paste URL or {EXIT_STR} to exit program')
 print(f'Select (1) for individual videos or (2) for playlist')
-signal.signal(signal.SIGINT, handler)
+signal.signal(signal.SIGINT, exitHandler)
 selection = input()
 match selection:
     case "1":
