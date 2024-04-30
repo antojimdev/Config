@@ -1,6 +1,6 @@
 from pytube import YouTube, Playlist
 from moviepy.editor import *
-import os, platform, shutil, signal
+import os, platform, shutil, signal, re
 
 ####################################### GLOBALS #######################################
 EXIT_STR            = "Quit"
@@ -77,6 +77,7 @@ def mp3_video_download(url):
 def mp3_playlist_download(url):
     
     playList = Playlist(url)
+    playList._video_regex = re.compile(r"\"url\":\"(/watch\?v=[\w-]*)")
     try:
         for video in playList.videos:
             mp3_video_download(video.embed_url)
