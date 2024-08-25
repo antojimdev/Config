@@ -4,7 +4,7 @@ import os, platform, shutil, signal, re
 
 ####################################### GLOBALS #######################################
 EXIT_STR            = "Quit"
-MUSIC_PATH_WINDOWS  = os.path.expanduser('~\Music')
+MUSIC_PATH_WINDOWS  = os.path.expanduser('~\\Music')
 MUSIC_PATH_LINUX    = os.path.expanduser('~/Music')
 YT_VIDEO            = None
 MAX_ABR = 192
