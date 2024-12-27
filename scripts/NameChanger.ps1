@@ -8,7 +8,9 @@ Param(
     [ValidateRange(2, 4)]
     [int]$numDigits,
     [Parameter(Mandatory=$True,Position=3)]
-    [int]$Start
+    [int]$Start,
+    [Parameter(Mandatory=$True,Position=4)]
+    [string]$Extension
     )
 
 if(Test-Path $Path)
@@ -22,7 +24,7 @@ if(Test-Path $Path)
 
    Get-ChildItem $Path | % {
     $valor = $format -f $Start
-    Rename-Item -LiteralPath $_.FullName -NewName "$NewName - $valor.mp4"
+    Rename-Item -LiteralPath $_.FullName -NewName "$NewName - $valor.$Extension"
     $Start = $Start + 1
     }
 
